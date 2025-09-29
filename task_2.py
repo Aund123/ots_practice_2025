@@ -6,47 +6,47 @@ def perform_switch_case(state, t, turn):
     y = round(t.position()[1] / 10)
     num_turns = 5
 
-    if state == "RIGHT":
+    if state == "LEFT":
         t.forward(10)  # Перемещение
 
-        if x >= turn:
-            state = "UP"
-            turn = turn + 1  # Начало нового витка
-            t.setheading(90)  # Разворот вверх
+        if x <= -turn:
+            state = "DOWN"
+            t.setheading(270)  # Разворот вниз
             return state, turn
-        return state, turn
-    if state == "UP":
-        t.forward(10)  # Перемещение
-
         if turn > num_turns:
             state = "STOP"
-            return state, turn
-        if y >= turn:
-            state = "LEFT"
-            t.setheading(180)  # Разворот влево
             return state, turn
         return state, turn
     if state == "INIT":
 
         if True:
-            state = "UP"
-            t.setheading(90)  # Разворот вверх
+            state = "LEFT"
+            t.setheading(180)  # Разворот влево
             return state, turn
         return state, turn
-    if state == "LEFT":
+    if state == "UP":
         t.forward(10)  # Перемещение
 
-        if  x <= -turn:
-            state = "DOWN"
-            t.setheading(270)  # Разворот вниз
+        if y >= turn:
+            state = "LEFT"
+            t.setheading(180)  # Разворот влево
+            turn = turn + 1  # Начало нового витка
             return state, turn
         return state, turn
     if state == "DOWN":
         t.forward(10)  # Перемещение
 
-        if  y <= -turn:
+        if y <= -turn:
             state = "RIGHT"
             t.setheading(0)  # Разворот вправо
+            return state, turn
+        return state, turn
+    if state == "RIGHT":
+        t.forward(10)  # Перемещение
+
+        if x >= turn:
+            state = "UP"
+            t.setheading(90)  # Разворот вверх
             return state, turn
         return state, turn
     return state, turn
